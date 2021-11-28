@@ -18,17 +18,10 @@ namespace T2009M1HelloUWP.Services
             {
                 var accountJson = Newtonsoft.Json.JsonConvert.SerializeObject(account);
                 HttpClient httpClient = new HttpClient();
-                // Tạo dữ liệu thô để gửi đi.           
                 Debug.WriteLine(accountJson);
-                // đóng gói dữ liệu, dán nhãn UTF8, dán format json.
                 var httpContent = new StringContent(accountJson, Encoding.UTF8, "application/json");
-                // thực hiện gửi dữ liệu sử dụng await, async
                 var requestConnection =
-                    await httpClient.PostAsync("https://music-i-like.herokuapp.com/api/v1/accounts", httpContent); // gặp vấn đề về độ trễ mạng, băng thông, đường truyền.
-                                                                                                                   // chờ phản hồi, lấy kết quả
-                if (requestConnection.StatusCode == System.Net.HttpStatusCode.Created) {
-                    //var content = await requestConnection.Content.ReadAsStringAsync();
-                    //Console.WriteLine("Finish program");
+                    await httpClient.PostAsync("https://music-i-like.herokuapp.com/api/v1/accounts", httpContent); 
                     return true;
                 }             
             }
@@ -41,23 +34,18 @@ namespace T2009M1HelloUWP.Services
         public async Task<Credential> LoginAsync(LoginInformation loginInformation) {
             try
             {
-                var accountJson = Newtonsoft.Json.JsonConvert.SerializeObject(loginInformation); // stringtify
+                var accountJson = Newtonsoft.Json.JsonConvert.SerializeObject(loginInformation);
                 HttpClient httpClient = new HttpClient();
-                // Tạo dữ liệu thô để gửi đi.           
                 Console.WriteLine(accountJson);
-                // đóng gói dữ liệu, dán nhãn UTF8, dán format json.
                 var httpContent = new StringContent(accountJson, Encoding.UTF8, "application/json");
                 // thực hiện gửi dữ liệu sử dụng await, async
                 var requestConnection =
-                    await httpClient.PostAsync("https://music-i-like.herokuapp.com/api/v1/accounts/authentication", httpContent); // gặp vấn đề về độ trễ mạng, băng thông, đường truyền.
-                Console.WriteLine(requestConnection.StatusCode);                                                                                     // chờ phản hồi, lấy kết quả
+                    await httpClient.PostAsync("https://music-i-like.herokuapp.com/api/v1/accounts/authentication", httpContent); 
+                Console.WriteLine(requestConnection.StatusCode);                                                                                  
                 if (requestConnection.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    // lấy content dạng string.
                     var content = await requestConnection.Content.ReadAsStringAsync();
-                    // parse content sang lớp Credential.
                     var credential = Newtonsoft.Json.JsonConvert.DeserializeObject<Credential>(content);
-                    //Console.WriteLine("Finish program");
                     await WriteTokenToFile(content);                    
                     return credential;
                 }
@@ -70,30 +58,23 @@ namespace T2009M1HelloUWP.Services
         }
        
         public async Task<Account> GetInformationAsync() {
-            // load token từ file.
             var credential = await LoadAccessTokenFromFile();
-            // nếu ko có token, trả về null
             if (credential == null) {
                 return null;
             }            
             try
             {               
                 HttpClient httpClient = new HttpClient();
-                // đây là bước đeo thẻ xe buýt vào cổ.
                 httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {credential.access_token}");
-                // thực hiện gửi dữ liệu sử dụng await, async
                 var requestConnection =
-                    await httpClient.GetAsync("https://music-i-like.herokuapp.com/api/v1/accounts"); // gặp vấn đề về độ trễ mạng, băng thông, đường truyền.
-                Console.WriteLine(requestConnection.StatusCode);                                                                                     // chờ phản hồi, lấy kết quả
+                    await httpClient.GetAsync("https://music-i-like.herokuapp.com/api/v1/accounts"); 
+                Console.WriteLine(requestConnection.StatusCode);                                                                                    
                 if (requestConnection.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    // lấy content dạng string.
                     var content = await requestConnection.Content.ReadAsStringAsync();
                     Debug.WriteLine("Getting information");
                     Debug.WriteLine(content);
-                    // parse content sang lớp Account.
                     var account = Newtonsoft.Json.JsonConvert.DeserializeObject<Account>(content);
-                    //Console.WriteLine("Finish program");
                     Console.WriteLine(content);
                     return account;
                 }
@@ -110,19 +91,14 @@ namespace T2009M1HelloUWP.Services
             try
             {
                 HttpClient httpClient = new HttpClient();
-                // đây là bước đeo thẻ xe buýt vào cổ.
                 httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken}");
-                // thực hiện gửi dữ liệu sử dụng await, async
                 var requestConnection =
-                    await httpClient.GetAsync("https://music-i-like.herokuapp.com/api/v1/accounts"); // gặp vấn đề về độ trễ mạng, băng thông, đường truyền.
-                Console.WriteLine(requestConnection.StatusCode);                                                                                     // chờ phản hồi, lấy kết quả
+                    await httpClient.GetAsync("https://music-i-like.herokuapp.com/api/v1/accounts");
+                Console.WriteLine(requestConnection.StatusCode);                                                                                 
                 if (requestConnection.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    // lấy content dạng string.
                     var content = await requestConnection.Content.ReadAsStringAsync();
-                    // parse content sang lớp Account.
                     var account = Newtonsoft.Json.JsonConvert.DeserializeObject<Account>(content);
-                    //Console.WriteLine("Finish program");
                     Console.WriteLine(content);
                     return account;
                 }
@@ -138,7 +114,6 @@ namespace T2009M1HelloUWP.Services
         {
             try
             {
-                // read token file.
                 StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
                 StorageFile storageFile = await storageFolder.GetFileAsync("milt.txt");
                 var fileContent = await FileIO.ReadTextAsync(storageFile);
@@ -153,7 +128,6 @@ namespace T2009M1HelloUWP.Services
         private async Task WriteTokenToFile(string content)
         {
             StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
-            //// lấy ra file cần làm việc từ trong thư mục đó.
             StorageFile storageFile = await storageFolder.CreateFileAsync("milt.txt", CreationCollisionOption.ReplaceExisting);
             await FileIO.WriteTextAsync(storageFile, content);
         }       
