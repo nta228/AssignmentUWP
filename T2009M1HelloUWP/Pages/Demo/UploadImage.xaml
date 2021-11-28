@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="T2009M1HelloUWP.Pages.Demo.DemoUploadImage"
+    x:Class="T2009M1HelloUWP.Pages.UploadImage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:T2009M1HelloUWP.Pages.Demo"
