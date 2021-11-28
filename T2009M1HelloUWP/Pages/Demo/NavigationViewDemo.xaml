@@ -10,9 +10,7 @@
 
     <NavigationView PaneTitle="Music I Like" SelectionChanged="NavigationView_SelectionChanged">
         <NavigationView.MenuItems>
-            <NavigationViewItem Visibility="{x:Bind IsAdmin}" Tag="Admin1" Icon="Clock" Content="Admin 1"/>
-            <NavigationViewItem Visibility="{x:Bind IsAdmin}" Tag="Admin2" Icon="Play" Content="Admin 2"/>
-            <NavigationViewItem Visibility="{x:Bind IsAdmin}" Tag="Admin3" Icon="AlignCenter" Content="Admin 3"/>
+            <NavigationViewItem Visibility="{x:Bind IsAdmin}" Tag="Admin1" Icon="Clock" Content="Admin"/>
             <NavigationViewItemSeparator Visibility="{x:Bind IsAdmin}"/>
             <NavigationViewItem Tag="ListSong" Icon="MusicInfo" Content="Latest Song"/>
             <NavigationViewItem Tag="CreateSong" Icon="Audio" Content="Create Song"/>
