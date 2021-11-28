@@ -26,11 +26,9 @@ namespace T2009M1HelloUWP.Pages.Demo
     {
         public ListViewDemo()
         {            
-            this.InitializeComponent(); // load giao diện.
-            this.Loaded += Page_Loaded; // load data sau khi giao diện đã load thành công.
+            this.InitializeComponent(); 
+            this.Loaded += Page_Loaded; 
         }
-     
-        // Xử lý khi click vào một phần tử
         private void MyListView_Tapped(object sender, TappedRoutedEventArgs e)
         {
             Debug.WriteLine("Clicked item.");
@@ -47,25 +45,25 @@ namespace T2009M1HelloUWP.Pages.Demo
             List<Account> accounts = new List<Account>();        
             accounts.Add(new Account
             {
-                firstName = "Hung",
-                lastName = "Dao",
+                firstName = "Tuan",
+                lastName = "Anh",
                 address = "Hanoi",
                 avatar = "https://cdn.icon-icons.com/icons2/2643/PNG/512/male_boy_person_people_avatar_icon_159358.png",
-                birthday = "2000-10-10",
-                email = "hung@gmail.com",
+                birthday = "2001-08-08",
+                email = "ta228@gmail.com",
                 gender = 1,
                 introduction = "Hanoi",
-                phone = "091231233",
-                password = "091231233"
+                phone = "091231234",
+                password = "091231234"
             });
             accounts.Add(new Account
             {
-                firstName = "Luyen",
-                lastName = "Dao",
+                firstName = "anh",
+                lastName = "tuan",
                 address = "Hanoi",
                 avatar = "https://cdn.iconscout.com/icon/free/png-256/avatar-373-456325.png",
                 birthday = "2010-10-10",
-                email = "luyendh@gmail.com",
+                email = "tuananh@gmail.com",
                 gender = 1,
                 introduction = "Hanoi",
                 phone = "091231233",
