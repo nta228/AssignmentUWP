@@ -11,8 +11,6 @@ namespace T2009M1HelloUWP.Services
 {
     public class AccountService
     {
-        // Thực hiện đăng ký người dùng với api, nhận tham số là một đối tượng của lớp Account
-        // Chuyển đối tượng về định dạng json sau đó gửi dữ liệu lên api với method POST.
         public async Task<bool> RegisterAsync(Account account) {
             try
             {
@@ -38,7 +36,6 @@ namespace T2009M1HelloUWP.Services
                 HttpClient httpClient = new HttpClient();
                 Console.WriteLine(accountJson);
                 var httpContent = new StringContent(accountJson, Encoding.UTF8, "application/json");
-                // thực hiện gửi dữ liệu sử dụng await, async
                 var requestConnection =
                     await httpClient.PostAsync("https://music-i-like.herokuapp.com/api/v1/accounts/authentication", httpContent); 
                 Console.WriteLine(requestConnection.StatusCode);                                                                                  
