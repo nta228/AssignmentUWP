@@ -35,7 +35,6 @@ namespace T2009M1HelloUWP.Pages.Demo
             NavigationViewSelectionChangedEventArgs args)
         {
             if (args.IsSettingsSelected) {
-                // click nút setting.
                 Debug.WriteLine("Select setting.");
             }
             var navigationViewItem = args.SelectedItem as NavigationViewItem;
