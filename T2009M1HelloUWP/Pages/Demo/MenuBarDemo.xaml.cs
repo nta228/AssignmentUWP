@@ -47,7 +47,6 @@ namespace T2009M1HelloUWP.Pages.Demo
             openPicker.SuggestedStartLocation = PickerLocationId.Desktop;
             openPicker.FileTypeFilter.Add(".txt");
             openPicker.FileTypeFilter.Add(".cs");
-            // xử lý chọn file.
             StorageFile file = await openPicker.PickSingleFileAsync();
             if (file != null)
             {
@@ -55,7 +54,6 @@ namespace T2009M1HelloUWP.Pages.Demo
                 MyEditor.Text = fileContent;
             }
             else {
-                // tạo thông báo cho người dùng.
                 ContentDialog contentDialog = new ContentDialog();
                 contentDialog.Title = "Action fails!";
                 contentDialog.Content = "Please choose a file to open!";
@@ -68,22 +66,13 @@ namespace T2009M1HelloUWP.Pages.Demo
         {
             var savePicker = new FileSavePicker();
             savePicker.SuggestedStartLocation = PickerLocationId.Desktop;
-            // Dropdown of file types the user can save the file as
             savePicker.FileTypeChoices.Add("Text Document (*.txt)", new List<string>() { ".txt" });
-            // Default file name if the user does not type one in or select a file to replace
             savePicker.SuggestedFileName = "*.txt";
-            
-            // gọi ra thư mục cần làm việc.
-            //StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
-            //// lấy ra file cần làm việc từ trong thư mục đó.
-            //StorageFile storageFile = await storageFolder.CreateFileAsync("tenfile.txt", CreationCollisionOption.ReplaceExisting);
-            
+
             StorageFile storageFile = await savePicker.PickSaveFileAsync();
             if (storageFile != null) {
-                // ghi dữ liệu ra file
                 await FileIO.WriteTextAsync(storageFile, MyEditor.Text);
-                Debug.WriteLine("Okie");
-                // tạo thông báo cho người dùng.
+                Debug.WriteLine("Ok");
                 ContentDialog contentDialog = new ContentDialog();
                 contentDialog.Title = "Action success!";
                 contentDialog.Content = "Save file to local storage.";
