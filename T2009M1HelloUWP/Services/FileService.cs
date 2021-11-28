@@ -10,16 +10,15 @@ namespace T2009M1HelloUWP.Services
 {
     public class FileService
     {
-        private static string CloudName = "xuanhung2401";
-        private static string CloudApiKey = "882796476526336";
-        private static string CloudApiSecret = "gOOT_72AMyn9TQz1Hd4MxyGRjxY";
+        private static string CloudName = "tuananh228";
+        private static string CloudApiKey = "297572584731263";
+        private static string CloudApiSecret = "UvofznlwXAgVIBwYwunTVK_G2Sc";
         // tạo đối tượng upload cloudinary.            
         static CloudinaryDotNet.Account account;
         static CloudinaryDotNet.Cloudinary cloud;
 
         public FileService()
         {
-            // kiểm tra để khởi tạo account 1 lần duy nhất.
             if (account == null) {
                 account = new CloudinaryDotNet.Account
                 {
@@ -28,7 +27,6 @@ namespace T2009M1HelloUWP.Services
                     ApiSecret = CloudApiSecret
                 };
             }
-            // tạo đối tượng upload cloudinary.   
             if (cloud == null) {
                 cloud = new CloudinaryDotNet.Cloudinary(account);
                 cloud.Api.Secure = true;
@@ -43,7 +41,6 @@ namespace T2009M1HelloUWP.Services
                    {
                        File = new CloudinaryDotNet.FileDescription(file.Name, await file.OpenStreamForReadAsync())
                    };
-                // thực hiện upload, lấy thông tin về.
                 CloudinaryDotNet.Actions.RawUploadResult result = await cloud.UploadAsync(imageUploadParams);
                 return result.SecureUrl.OriginalString;
             }
