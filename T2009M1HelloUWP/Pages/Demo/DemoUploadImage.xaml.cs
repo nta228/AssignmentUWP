@@ -33,7 +33,6 @@ namespace T2009M1HelloUWP.Pages.Demo
         {
             FileOpenPicker picker = new FileOpenPicker
             {
-                // config picker.
                 ViewMode = PickerViewMode.Thumbnail,
                 SuggestedStartLocation = PickerLocationId.Downloads
             };
@@ -44,32 +43,21 @@ namespace T2009M1HelloUWP.Pages.Demo
             Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
 
             if (file != null) {
-                Debug.WriteLine(file.Path); // đường dẫn của file trên máy tính.
-
-                // setup account, full package, tránh nhầm lẫn package.
+                Debug.WriteLine(file.Path);
                 CloudinaryDotNet.Account account = new CloudinaryDotNet.Account
                 {
-                    Cloud = "xuanhung2401",
-                    ApiKey = "882796476526336",
-                    ApiSecret = "gOOT_72AMyn9TQz1Hd4MxyGRjxY"
-                };
-                // tạo đối tượng upload cloudinary.            
+                    Cloud = "tuananh228",
+                    ApiKey = "297572584731263",
+                    ApiSecret = "UvofznlwXAgVIBwYwunTVK_G2Sc"
+                };           
                 CloudinaryDotNet.Cloudinary cloud = new CloudinaryDotNet.Cloudinary(account);
                 cloud.Api.Secure = true;
-                // tạo thông tin upload.
                 Debug.WriteLine(file.Path);                               
-                //CloudinaryDotNet.Actions.ImageUploadParams imageUploadParams
-                //    = new CloudinaryDotNet.Actions.ImageUploadParams
-                //    {
-                //        File = new CloudinaryDotNet.FileDescription(file.Name, await file.OpenStreamForReadAsync())
-                //    };
                 CloudinaryDotNet.Actions.RawUploadParams imageUploadParams
                    = new CloudinaryDotNet.Actions.RawUploadParams
                    {
                        File = new CloudinaryDotNet.FileDescription(file.Name, await file.OpenStreamForReadAsync())
                    };
-                // thực hiện upload, lấy thông tin về.
-
                 CloudinaryDotNet.Actions.RawUploadResult result = await cloud.UploadAsync(imageUploadParams);
                 Debug.WriteLine(result.SecureUrl);
             }
